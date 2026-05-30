@@ -8,6 +8,7 @@ class Job(Base):
     title       = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
     jd_filepath = Column(String(500), nullable=True)
+    session_id  = Column(String(100), nullable=True, index=True)
 
 class Candidate(Base):
     __tablename__ = "candidates"
