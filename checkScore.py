@@ -82,12 +82,13 @@ def calculate_score(job_description: str, resume_text: str):
     """
     
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel(
+            'gemini-2.5-flash',
+            generation_config={"response_mime_type": "application/json"}
+        )
         response = model.generate_content(prompt)
         
-        # Clean up response text to parse json
-        response_text = response.text.replace('```json', '').replace('```', '').strip()
-        result = json.loads(response_text)
+        result = json.loads(response.text)
         
         score = float(result.get("score", 0))
         matched = result.get("matched_skills", [])
